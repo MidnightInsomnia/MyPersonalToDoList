@@ -1,2 +1,2 @@
-# MyPersonalToDoList
-Зато работает
+# MyToDoList
+ Зато работает
