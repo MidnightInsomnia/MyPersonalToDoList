@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddButton: {fileID: 614831265}
   ElementPrefub: {fileID: 2099441546753001902, guid: 6405665a1521afd48867539567e4d482, type: 3}
-  AddElementWindow: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
+  AddElementWindow: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
   MainPanelTransform: {fileID: 1316916540}
   Content: {fileID: 1017728194}
 --- !u!4 &19866802
@@ -255,7 +255,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 43097857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 19866801}
+        m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
+        m_MethodName: SortFullfilledButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &43097857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,7 +1510,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1389117609}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 19866801}
+        m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
+        m_MethodName: SortUnfulfilledButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1389117609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2106,7 +2130,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1880950984}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 19866801}
+        m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
+        m_MethodName: SortAllButtonPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1880950984
 MonoBehaviour:
   m_ObjectHideFlags: 0

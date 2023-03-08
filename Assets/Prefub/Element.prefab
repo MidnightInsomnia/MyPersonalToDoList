@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7083229661b24e549b69ddff376129f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backPanel: {fileID: 2099441546753001902}
   textField: {fileID: 8891199182898726954}
   checkBtn: {fileID: 7452264613272224198}
   img: {fileID: 6899850232053131815}

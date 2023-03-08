@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class MainScript : MonoBehaviour
     [SerializeField] private Transform Content;
 
     private List<Item> UserToDoList = new List<Item>();
+    private List<ItemUI> SpawnedItems = new List<ItemUI>();
 
     public enum SortType
     {
@@ -35,9 +37,7 @@ public class MainScript : MonoBehaviour
     {
         Debug.Log("PATH " + Application.persistentDataPath);
 
-        LoadData();
-
-        SpawnItems();
+        SpawnItems(LoadData());
 
         SortItems(SortType.All);
     }
@@ -48,19 +48,50 @@ public class MainScript : MonoBehaviour
         
     }
 
-    private void SpawnItems()
+    private void SpawnItems(List<Item>list)
     {
-        foreach (var item in UserToDoList)
+        foreach (var item in list)
         {
             CreateElementInView(item);
         }
     }
     private void SortItems(SortType sortType)
     {
-        
+        switch(sortType)
+        {
+            case SortType.All:
+
+                foreach (var element in SpawnedItems)
+                {
+                    element.backPanel.SetActive(true);
+                }
+                break;
+
+            case SortType.Fullfilled:
+
+                foreach (var element in SpawnedItems)
+                {
+                    if(element.item.Checked == true)
+                        element.backPanel.SetActive(true);
+                    else
+                        element.backPanel.SetActive(false);
+                }
+                break;
+
+            case SortType.Unfulfilled:
+
+                foreach (var element in SpawnedItems)
+                {
+                    if (element.item.Checked == false)
+                        element.backPanel.SetActive(true);
+                    else
+                        element.backPanel.SetActive(false);
+                }
+                break;
+        }
     }
 
-    private void LoadData()
+    private List<Item> LoadData()
     {
         /*if (!PlayerPrefs.HasKey("UserToDoList"))
         {
@@ -88,7 +119,7 @@ public class MainScript : MonoBehaviour
             {
                 BinaryFormatter bin = new BinaryFormatter();
 
-                UserToDoList = (List<Item>)bin.Deserialize(stream);
+                var result = (List<Item>)bin.Deserialize(stream);
 
                 /*var item2 = (List<Item>)bin.Deserialize(stream);
                 foreach (Item item in item2)
@@ -96,12 +127,16 @@ public class MainScript : MonoBehaviour
                     Debug.Log("ITEM DESCRIBE " + item.timeStamp + item.itemText);
                     CreateElementInView(item);
                 }*/
+
+                return result;
             }
         }
         catch (Exception ex)
         {
             Debug.Log("EXC 1 " + ex);
         }
+
+        return new List<Item>();
     }
 
     private void CreateElementInView(Item tempItem)
@@ -126,11 +161,13 @@ public class MainScript : MonoBehaviour
 
         Debug.Log("itemEl " + itemUI.textField.text.ToString() + tempItem.timeStamp.ToString());
 
-        //UserToDoList.Add(tempItem);
+        UserToDoList.Add(tempItem);
 
         itemUI.onImgPrs += SwitchItemStatus;
 
         itemUI.img.sprite = itemUI.item.Checked ? itemUI.ifChecked : itemUI.ifUnchecked;
+
+        SpawnedItems.Add(itemUI);
 
         SaveItem();
 
@@ -212,5 +249,20 @@ public class MainScript : MonoBehaviour
         var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
         itemToChange = item;
         SaveItem();
+    }
+
+    public void SortAllButtonPress()
+    {
+        SortItems(SortType.All);
+    }
+
+    public void SortFullfilledButtonPress()
+    {
+        SortItems(SortType.Fullfilled);
+    }
+
+    public void SortUnfulfilledButtonPress()
+    {
+        SortItems(SortType.Unfulfilled);
     }
 }
