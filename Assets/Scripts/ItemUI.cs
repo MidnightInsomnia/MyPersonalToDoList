@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ItemUI : MonoBehaviour
 {
@@ -13,8 +12,6 @@ public class ItemUI : MonoBehaviour
     [SerializeField] public Image img;
     [SerializeField] public Sprite ifChecked;
     [SerializeField] public Sprite ifUnchecked;
-
-    [SerializeField] public MainScript main;
 
     public delegate void MethodContainer(Item item);
 
@@ -29,7 +26,6 @@ public class ItemUI : MonoBehaviour
         {
             item.Checked = (item.Checked == true) ? false : true;
             img.sprite = (item.Checked == true) ? ifChecked : ifUnchecked;
-            //main.SwitchItemStatus(item);
             onImgPrs(item);
         }
     }

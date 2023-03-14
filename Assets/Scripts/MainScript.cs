@@ -10,7 +10,6 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class MainScript : MonoBehaviour
 {
@@ -39,9 +38,42 @@ public class MainScript : MonoBehaviour
     {
         Debug.Log("PATH " + Application.persistentDataPath);
 
+        Debug.Log("CURRENT SORT TYPE " + Enum.GetName(typeof(SortType), currentSortType));
+
         SpawnItems(LoadData());
 
-        SortItems(SortType.All);
+        LoadSortType();
+
+        Debug.Log("CURRENT LOADED SORT TYPE " + Enum.GetName(typeof(SortType), currentSortType));
+
+        SortItems(sortType: currentSortType);
+    }
+
+    private void LoadSortType()
+    {
+        if (PlayerPrefs.HasKey("SortType"))
+        {
+            switch (PlayerPrefs.GetString("SortType"))
+            {
+                case "All":
+                    currentSortType = SortType.All;
+                    break;
+
+                case "Fullfilled":
+                    currentSortType = SortType.Fullfilled;
+                    break;
+
+                case "Unfulfilled":
+                    currentSortType = SortType.Unfulfilled;
+                    break;
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString("SortType", "All");
+        }
+
+        PlayerPrefs.Save();
     }
 
     // Update is called once per frame
@@ -59,7 +91,11 @@ public class MainScript : MonoBehaviour
     }
     private void SortItems(SortType sortType)
     {
-        switch(sortType)
+        currentSortType = sortType;
+        PlayerPrefs.SetString("SortType", Enum.GetName(typeof(SortType), sortType));
+        PlayerPrefs.Save();
+
+        switch (sortType)
         {
             case SortType.All:
 
@@ -95,26 +131,6 @@ public class MainScript : MonoBehaviour
 
     private List<Item> LoadData()
     {
-        /*if (!PlayerPrefs.HasKey("UserToDoList"))
-        {
-            PlayerPrefs.SetInt("lastItemID", 0);
-        }*/
-
-        /*if (PlayerPrefs.HasKey("UserToDoList"))
-        {
-            var json = PlayerPrefs.GetString("UserToDoList");
-
-            var jobject = JObject.Parse(json);
-
-            UserToDoList = JsonConvert.DeserializeObject<List<Item>>(jobject.ToString());
-
-            Debug.Log("TEST 1 " + jobject.ToString());
-            Debug.Log("TEST 2 " + UserToDoList.ToString());
-
-            //UserToDoList = JObject.Parse(json);
-
-        }*/
-
         try
         {
             using (Stream stream = File.Open("data.bin", FileMode.Open))
@@ -122,13 +138,6 @@ public class MainScript : MonoBehaviour
                 BinaryFormatter bin = new BinaryFormatter();
 
                 var result = (List<Item>)bin.Deserialize(stream);
-
-                /*var item2 = (List<Item>)bin.Deserialize(stream);
-                foreach (Item item in item2)
-                {
-                    Debug.Log("ITEM DESCRIBE " + item.timeStamp + item.itemText);
-                    CreateElementInView(item);
-                }*/
 
                 return result;
             }
@@ -179,8 +188,8 @@ public class MainScript : MonoBehaviour
 
     public void OnButtonPress()
     {
-       var a = Instantiate(AddElementPanel);
-       a.transform.SetParent(MainPanelTransform);
+        var a = Instantiate(AddElementPanel);
+        a.transform.SetParent(MainPanelTransform);
         a.transform.localScale = Vector3.one;
 
         CreateTaskWindow tskWin = a.GetComponent<CreateTaskWindow>();
@@ -188,8 +197,10 @@ public class MainScript : MonoBehaviour
         tskWin.AddButton.onClick.AddListener(() => 
         {
             string guid = Guid.NewGuid().ToString();
-            //CreateElementInView(tskWin.taskText.text);
+            
             CreateElementInView(new Item(guid, tskWin.taskText.text, false, DateTime.Now));
+
+            SortItems(sortType: currentSortType);
 
             Destroy(a);
         });
@@ -209,23 +220,6 @@ public class MainScript : MonoBehaviour
     {
         if(UserToDoList.Count > 0)
         {
-            Debug.Log("LOL 1" + UserToDoList[0].ToString());
-
-            //var str = JsonConvert.SerializeObject(UserToDoList);
-
-            /*var str = JsonConvert.SerializeObject(UserToDoList, new JsonSerializerSettings()
-            {
-                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            });*/
-
-            /*Debug.Log("LOL 2 " + str);
-            PlayerPrefs.SetString("UserToDoList", str);
-            Debug.Log("LOL 3");
-            Debug.Log("SAVE " + str);
-            Debug.Log("LOL 4");
-            PlayerPrefs.Save();
-            Debug.Log("LOL 5");*/
-
             try
             {
                 using (Stream stream = File.Open("data.bin", FileMode.Create))
@@ -241,14 +235,8 @@ public class MainScript : MonoBehaviour
         }
     }
 
-    public void DeleteItem()
-    {
-
-    }
-
     public void SwitchItemStatus(Item item)
     {
-        Debug.Log("ÐÀÁÎÒÀÅÒ ÀÕÀÕÀÕÀÕ");
         var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
         itemToChange = item;
         SaveItem();
@@ -276,7 +264,25 @@ public class MainScript : MonoBehaviour
 
         editElementPanel.ChangeButton.onClick.AddListener(() =>
         {
-            //Ìÿñî
+            var conf = Instantiate(ConfirmationPanel);
+            conf.transform.SetParent(MainPanelTransform);
+            conf.transform.localScale = Vector3.one;
+
+            ConfirmationPanel con = conf.GetComponent<ConfirmationPanel>();
+
+            con.YesButton.onClick.AddListener(() =>
+            {
+                Destroy(conf);
+                Destroy(a);
+
+                var elementUI = (SpawnedItems.Find(i => i.item.guid == item.guid));
+
+                item.itemText = editElementPanel.taskText.text;
+                SaveItem();
+
+                elementUI.item.itemText = editElementPanel.taskText.text;
+                elementUI.textField.text = item.itemText;
+            });
         });
 
         editElementPanel.DeleteButton.onClick.AddListener(() =>
@@ -298,12 +304,9 @@ public class MainScript : MonoBehaviour
                 UserToDoList.Remove(item);
                 SpawnedItems.Remove(elementPanel);
                 SaveItem();
-            });
-        });
 
-        editElementPanel.statusCheckButton.onClick.AddListener(() =>
-        {
-            editElementPanel.OnImagePress(item);
+                SortItems(sortType: currentSortType);
+            });
         });
     }
 
