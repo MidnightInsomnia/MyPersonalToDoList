@@ -38,13 +38,9 @@ public class MainScript : MonoBehaviour
     {
         Debug.Log("PATH " + Application.persistentDataPath);
 
-        Debug.Log("CURRENT SORT TYPE " + Enum.GetName(typeof(SortType), currentSortType));
-
         SpawnItems(LoadData());
 
         LoadSortType();
-
-        Debug.Log("CURRENT LOADED SORT TYPE " + Enum.GetName(typeof(SortType), currentSortType));
 
         SortItems(sortType: currentSortType);
     }
@@ -74,12 +70,6 @@ public class MainScript : MonoBehaviour
         }
 
         PlayerPrefs.Save();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void SpawnItems(List<Item>list)
@@ -162,11 +152,6 @@ public class MainScript : MonoBehaviour
 
         itemUI.item = tempItem;
 
-        /*var itemEl = itemUI.item;
-
-        itemEl.timeStamp = DateTime.Now;
-        itemEl.ItemText = tempItem.ItemText;
-        itemEl.Checked = false;*/
 
         itemUI.textField.text = tempItem.itemText;
 
@@ -240,6 +225,7 @@ public class MainScript : MonoBehaviour
         var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
         itemToChange = item;
         SaveItem();
+        SortItems(sortType: currentSortType);
     }
 
     public void OpenEditElementPanel(Item item)
