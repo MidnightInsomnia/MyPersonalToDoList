@@ -154,7 +154,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddButton: {fileID: 614831265}
   ElementPrefub: {fileID: 2099441546753001902, guid: 6405665a1521afd48867539567e4d482, type: 3}
-  AddElementWindow: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
+  AddElementPanel: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
+  EditElementPanel: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
+  ConfirmationPanel: {fileID: 8393333675206497601, guid: c0b6f4cfca41fd54890312365698736c, type: 3}
   MainPanelTransform: {fileID: 1316916540}
   Content: {fileID: 1017728194}
 --- !u!4 &19866802

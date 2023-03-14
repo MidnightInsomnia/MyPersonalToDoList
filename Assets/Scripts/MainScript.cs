@@ -16,7 +16,9 @@ public class MainScript : MonoBehaviour
 {
     [SerializeField] private Button AddButton;
     [SerializeField] private GameObject ElementPrefub;
-    [SerializeField] private GameObject AddElementWindow;
+    [SerializeField] private GameObject AddElementPanel;
+    [SerializeField] private GameObject EditElementPanel;
+    [SerializeField] private GameObject ConfirmationPanel;
     [SerializeField] private Transform MainPanelTransform;
     [SerializeField] private Transform Content;
 
@@ -164,6 +166,7 @@ public class MainScript : MonoBehaviour
         UserToDoList.Add(tempItem);
 
         itemUI.onImgPrs += SwitchItemStatus;
+        itemUI.OnPnlPrs += OpenEditElementPanel;
 
         itemUI.img.sprite = itemUI.item.Checked ? itemUI.ifChecked : itemUI.ifUnchecked;
 
@@ -176,7 +179,7 @@ public class MainScript : MonoBehaviour
 
     public void OnButtonPress()
     {
-       var a = Instantiate(AddElementWindow);
+       var a = Instantiate(AddElementPanel);
        a.transform.SetParent(MainPanelTransform);
         a.transform.localScale = Vector3.one;
 
@@ -249,6 +252,59 @@ public class MainScript : MonoBehaviour
         var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
         itemToChange = item;
         SaveItem();
+    }
+
+    public void OpenEditElementPanel(Item item)
+    {
+        var a = Instantiate(EditElementPanel);
+        a.transform.SetParent(MainPanelTransform);
+        a.transform.localScale = Vector3.one;
+
+        EditElementPanel editElementPanel = a.GetComponent<EditElementPanel>();
+
+        editElementPanel.Init(item);
+
+        editElementPanel.CloseButton.onClick.AddListener(() =>
+        {
+            Destroy(a);
+        });
+
+        editElementPanel.BackgroundButton.onClick.AddListener(() =>
+        {
+            Destroy(a);
+        });
+
+        editElementPanel.ChangeButton.onClick.AddListener(() =>
+        {
+            //Ìÿסמ
+        });
+
+        editElementPanel.DeleteButton.onClick.AddListener(() =>
+        {
+            var conf = Instantiate(ConfirmationPanel);
+            conf.transform.SetParent(MainPanelTransform);
+            conf.transform.localScale = Vector3.one;
+
+            ConfirmationPanel con = conf.GetComponent<ConfirmationPanel>();
+
+            con.YesButton.onClick.AddListener(() =>
+            {
+                Destroy(conf);
+                Destroy(a);
+
+                var elementPanel = (SpawnedItems.Find(i => i.item.guid == item.guid));
+
+                Destroy(elementPanel.backPanel);
+                UserToDoList.Remove(item);
+                SpawnedItems.Remove(elementPanel);
+                SaveItem();
+            });
+        });
+
+        editElementPanel.statusCheckButton.onClick.AddListener(() =>
+        {
+            editElementPanel.OnImagePress(item);
+        });
     }
 
     public void SortAllButtonPress()

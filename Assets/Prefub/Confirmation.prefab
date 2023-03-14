@@ -736,7 +736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8393333675206497600}
-  - component: {fileID: 4934077238552546129}
+  - component: {fileID: 4046413038151965564}
   m_Layer: 5
   m_Name: Confirmation
   m_TagString: Untagged
@@ -765,7 +765,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4934077238552546129
+--- !u!114 &4046413038151965564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -774,13 +774,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8393333675206497601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc4a341f0745be74aac8c5958a1fccc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f2c11c68e293ea4387fc8deaad74b23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseButton: {fileID: 3337349990696688855}
-  AddButton: {fileID: 2783783465866692217}
+  NoButton: {fileID: 3337349990696688855}
+  YesButton: {fileID: 2783783465866692217}
   BackgroundButton: {fileID: 5093215410125628951}
-  taskText: {fileID: 0}
 --- !u!1 &8393333675540350887
 GameObject:
   m_ObjectHideFlags: 0
