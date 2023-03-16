@@ -7,19 +7,22 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainScript : MonoBehaviour
 {
-    [SerializeField] private Button AddButton;
     [SerializeField] private GameObject ElementPrefub;
     [SerializeField] private GameObject AddElementPanel;
     [SerializeField] private GameObject EditElementPanel;
     [SerializeField] private GameObject ConfirmationPanel;
     [SerializeField] private Transform MainPanelTransform;
     [SerializeField] private Transform Content;
+    [SerializeField] private VerticalLayoutGroup itemLayout;
+
+    [SerializeField] private TMP_Text sortTypeText;
 
     private List<Item> UserToDoList = new List<Item>();
     private List<ItemUI> SpawnedItems = new List<ItemUI>();
@@ -78,6 +81,8 @@ public class MainScript : MonoBehaviour
         {
             CreateElementInView(item);
         }
+
+        UpdateLayoutSpacing(itemLayout, itemLayout.spacing);
     }
     private void SortItems(SortType sortType)
     {
@@ -93,6 +98,8 @@ public class MainScript : MonoBehaviour
                 {
                     element.backPanel.SetActive(true);
                 }
+
+                sortTypeText.text = "¬—≈ «¿ƒ¿◊»:";
                 break;
 
             case SortType.Fullfilled:
@@ -104,6 +111,8 @@ public class MainScript : MonoBehaviour
                     else
                         element.backPanel.SetActive(false);
                 }
+
+                sortTypeText.text = "¬€œŒÀÕ≈ÕÕ€≈:";
                 break;
 
             case SortType.Unfulfilled:
@@ -115,6 +124,8 @@ public class MainScript : MonoBehaviour
                     else
                         element.backPanel.SetActive(false);
                 }
+
+                sortTypeText.text = "Õ≈ ¬€œŒÀÕ≈ÕÕ€≈:";
                 break;
         }
     }
@@ -171,7 +182,7 @@ public class MainScript : MonoBehaviour
         Debug.Log("ElementAdded");
     }
 
-    public void OnButtonPress()
+    public void AddEventButtonPress()
     {
         var a = Instantiate(AddElementPanel);
         a.transform.SetParent(MainPanelTransform);
@@ -309,5 +320,23 @@ public class MainScript : MonoBehaviour
     public void SortUnfulfilledButtonPress()
     {
         SortItems(SortType.Unfulfilled);
+    }
+
+    public static IEnumerator UpdateLayoutSpacing(VerticalLayoutGroup v, float spacing)
+    {
+        v.spacing = spacing + 0.00001f;
+        yield return new WaitForSeconds(0.00001f);
+        v.spacing = spacing + 0.00002f;
+        yield return new WaitForSeconds(0.00001f);
+        v.spacing = spacing + 0.00003f;
+        yield return new WaitForSeconds(0.00001f);
+        v.spacing = spacing + 0.00004f;
+        v.spacing = spacing;
+    }
+
+    //”ƒ¿À»“‹
+    public void Secret()
+    {
+        sortTypeText.text = "»ƒ» Õ¿’”…!!!";
     }
 }

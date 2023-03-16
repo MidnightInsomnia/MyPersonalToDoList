@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6988206321981565236}
   - component: {fileID: 266864315284382902}
   - component: {fileID: 6427722676692842519}
+  - component: {fileID: 5146861837476483497}
   m_Layer: 5
   m_Name: Element
   m_TagString: Untagged
@@ -64,14 +65,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.15294118, g: 0.20784314, b: 0.17254902, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -80,7 +81,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.8
 --- !u!114 &9040182623811657123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +118,8 @@ MonoBehaviour:
   textField: {fileID: 3906121151876405967}
   checkBtn: {fileID: 7452264613272224198}
   img: {fileID: 6899850232053131815}
-  ifChecked: {fileID: 21300000, guid: 616a8bd8f1cdd3741b4c08c68ea7d175, type: 3}
-  ifUnchecked: {fileID: 21300000, guid: 31cf5dce57e5c7d44819e00d5329e5a7, type: 3}
+  ifChecked: {fileID: 21300000, guid: 2286738337217c44b9441cdc821c9973, type: 3}
+  ifUnchecked: {fileID: 21300000, guid: fe646d4bcdff7ae42abee9885a9b5185, type: 3}
   item:
     guid: 
     itemText: 
@@ -163,6 +164,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5146861837476483497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2099441546753001902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.8, g: 0.8784314, b: 0.8352941, a: 1}
+  m_EffectDistance: {x: 10, y: 10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &6241285275322405134
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.70980394, g: 0.27058825, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -394,6 +410,7 @@ GameObject:
   - component: {fileID: 5583979567296354889}
   - component: {fileID: 3906121151876405967}
   - component: {fileID: 6276753388415023382}
+  - component: {fileID: 3913047077605244614}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -451,15 +468,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 95c34bd4e9c399e4bae57934891621e5, type: 2}
+  m_sharedMaterial: {fileID: 7280930812334614628, guid: 95c34bd4e9c399e4bae57934891621e5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4292206796
+  m_fontColor: {r: 0.8, g: 0.8784314, b: 0.8352941, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -574,3 +591,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3913047077605244614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6936938384044470197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 120
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
