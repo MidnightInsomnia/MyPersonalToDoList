@@ -11,16 +11,18 @@ public class ConfirmationPanel : MonoBehaviour
     
     public Button BackgroundButton;
 
+    public Animator anim;
+
     void Start()
     {
         NoButton.onClick.AddListener(() =>
         {
-            Destroy(this.gameObject);
+            anim.SetBool("IsOpened", false);
         });
 
         BackgroundButton.onClick.AddListener(() => 
         {
-            Destroy(this.gameObject);
+            anim.SetBool("IsOpened", false);
         });
     }
 }

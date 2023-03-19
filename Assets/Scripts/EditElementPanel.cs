@@ -13,7 +13,9 @@ public class EditElementPanel : MonoBehaviour
     public TMP_InputField taskText;
     public TMP_Text timeStamp;
     public TMP_Text statusText;
-   
+
+    public Animator anim;
+
     public void Init(Item item)
     {
         if(item!= null)

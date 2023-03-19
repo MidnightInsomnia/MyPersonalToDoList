@@ -15,12 +15,16 @@ using UnityEngine.UI;
 public class MainScript : MonoBehaviour
 {
     [SerializeField] private GameObject ElementPrefub;
-    [SerializeField] private GameObject AddElementPanel;
-    [SerializeField] private GameObject EditElementPanel;
-    [SerializeField] private GameObject ConfirmationPanel;
-    [SerializeField] private Transform MainPanelTransform;
+    [SerializeField] private GameObject AddElementPanelPrefub;
+    [SerializeField] private GameObject EditElementPanelPrefub;
+    [SerializeField] private GameObject ConfirmationPanelPrefub;
+    [SerializeField] private GameObject WarningPanelPrefub;
+    [SerializeField] private Transform CanvasTransform;
     [SerializeField] private Transform Content;
     [SerializeField] private VerticalLayoutGroup itemLayout;
+
+
+    [SerializeField] private Animator refreshPanelAnimator;
 
     [SerializeField] private TMP_Text sortTypeText;
 
@@ -36,7 +40,6 @@ public class MainScript : MonoBehaviour
 
     private SortType currentSortType = SortType.All;
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log("PATH " + Application.persistentDataPath);
@@ -86,9 +89,12 @@ public class MainScript : MonoBehaviour
     }
     private void SortItems(SortType sortType)
     {
+
         currentSortType = sortType;
         PlayerPrefs.SetString("SortType", Enum.GetName(typeof(SortType), sortType));
         PlayerPrefs.Save();
+
+        int itemCount = 0;
 
         switch (sortType)
         {
@@ -97,9 +103,10 @@ public class MainScript : MonoBehaviour
                 foreach (var element in SpawnedItems)
                 {
                     element.backPanel.SetActive(true);
+                    itemCount++;
                 }
 
-                sortTypeText.text = "¬—≈ «¿ƒ¿◊»:";
+                sortTypeText.text = string.Format("¬—≈√Œ «¿ƒ¿◊ ({0}):", SpawnedItems.Count);
                 break;
 
             case SortType.Fullfilled:
@@ -107,12 +114,15 @@ public class MainScript : MonoBehaviour
                 foreach (var element in SpawnedItems)
                 {
                     if(element.item.Checked == true)
+                    {
                         element.backPanel.SetActive(true);
+                        itemCount++;
+                    }
                     else
                         element.backPanel.SetActive(false);
                 }
 
-                sortTypeText.text = "¬€œŒÀÕ≈ÕÕ€≈:";
+                sortTypeText.text = string.Format("¬€œŒÀÕ≈ÕÕ€≈ ({0}):", itemCount);
                 break;
 
             case SortType.Unfulfilled:
@@ -120,12 +130,15 @@ public class MainScript : MonoBehaviour
                 foreach (var element in SpawnedItems)
                 {
                     if (element.item.Checked == false)
+                    {
                         element.backPanel.SetActive(true);
+                        itemCount++;
+                    }
                     else
                         element.backPanel.SetActive(false);
                 }
 
-                sortTypeText.text = "Õ≈ ¬€œŒÀÕ≈ÕÕ€≈:";
+                sortTypeText.text = string.Format("Õ≈ ¬€œŒÀÕ≈ÕÕ€≈ ({0}):", itemCount);
                 break;
         }
     }
@@ -184,31 +197,38 @@ public class MainScript : MonoBehaviour
 
     public void AddEventButtonPress()
     {
-        var a = Instantiate(AddElementPanel);
-        a.transform.SetParent(MainPanelTransform);
+        var a = Instantiate(AddElementPanelPrefub);
+        a.transform.SetParent(CanvasTransform);
         a.transform.localScale = Vector3.one;
 
-        CreateTaskWindow tskWin = a.GetComponent<CreateTaskWindow>();
+        CreateTaskPanel tskWin = a.GetComponent<CreateTaskPanel>();
 
         tskWin.AddButton.onClick.AddListener(() => 
         {
+            if (tskWin.taskText.text.Equals(string.Empty))
+            {
+                ShowWarning("“ÂÍÒÚ Á‡ÏÂÚÍË ÌÂ ÏÓÊÂÚ ·˚Ú¸ ÔÛÒÚ˚Ï!");
+
+                return;
+            }
+
             string guid = Guid.NewGuid().ToString();
             
             CreateElementInView(new Item(guid, tskWin.taskText.text, false, DateTime.Now));
 
             SortItems(sortType: currentSortType);
 
-            Destroy(a);
+            tskWin.anim.SetBool("IsOpened", false);
         });
 
         tskWin.BackgroundButton.onClick.AddListener(() => 
         {
-            Destroy(a);
+            tskWin.anim.SetBool("IsOpened", false);
         });
 
         tskWin.CloseButton.onClick.AddListener(() =>
         {
-            Destroy(a);
+            tskWin.anim.SetBool("IsOpened", false);
         });
     }
 
@@ -241,8 +261,10 @@ public class MainScript : MonoBehaviour
 
     public void OpenEditElementPanel(Item item)
     {
-        var a = Instantiate(EditElementPanel);
-        a.transform.SetParent(MainPanelTransform);
+        string oldItemText = item.itemText;
+
+        var a = Instantiate(EditElementPanelPrefub);
+        a.transform.SetParent(CanvasTransform);
         a.transform.localScale = Vector3.one;
 
         EditElementPanel editElementPanel = a.GetComponent<EditElementPanel>();
@@ -251,26 +273,33 @@ public class MainScript : MonoBehaviour
 
         editElementPanel.CloseButton.onClick.AddListener(() =>
         {
-            Destroy(a);
+            editElementPanel.anim.SetBool("IsOpened", false);
         });
 
         editElementPanel.BackgroundButton.onClick.AddListener(() =>
         {
-            Destroy(a);
+            editElementPanel.anim.SetBool("IsOpened", false);
         });
 
         editElementPanel.ChangeButton.onClick.AddListener(() =>
         {
-            var conf = Instantiate(ConfirmationPanel);
-            conf.transform.SetParent(MainPanelTransform);
+            if (editElementPanel.taskText.text.Equals(oldItemText))
+            {
+                ShowWarning("¬˚ ÌÂ ‚ÌÂÒÎË ËÁÏÂÌÂÌËÈ!");
+                return;
+            }
+
+            var conf = Instantiate(ConfirmationPanelPrefub);
+            conf.transform.SetParent(CanvasTransform);
             conf.transform.localScale = Vector3.one;
 
-            ConfirmationPanel con = conf.GetComponent<ConfirmationPanel>();
 
-            con.YesButton.onClick.AddListener(() =>
+            ConfirmationPanel ÒonfirmationPanel = conf.GetComponent<ConfirmationPanel>();
+
+            ÒonfirmationPanel.YesButton.onClick.AddListener(() =>
             {
-                Destroy(conf);
-                Destroy(a);
+                ÒonfirmationPanel.anim.SetBool("IsOpened", false);
+                editElementPanel.anim.SetBool("IsOpened", false);
 
                 var elementUI = (SpawnedItems.Find(i => i.item.guid == item.guid));
 
@@ -284,8 +313,8 @@ public class MainScript : MonoBehaviour
 
         editElementPanel.DeleteButton.onClick.AddListener(() =>
         {
-            var conf = Instantiate(ConfirmationPanel);
-            conf.transform.SetParent(MainPanelTransform);
+            var conf = Instantiate(ConfirmationPanelPrefub);
+            conf.transform.SetParent(CanvasTransform);
             conf.transform.localScale = Vector3.one;
 
             ConfirmationPanel con = conf.GetComponent<ConfirmationPanel>();
@@ -293,7 +322,7 @@ public class MainScript : MonoBehaviour
             con.YesButton.onClick.AddListener(() =>
             {
                 Destroy(conf);
-                Destroy(a);
+                editElementPanel.anim.SetBool("IsOpened", false);
 
                 var elementPanel = (SpawnedItems.Find(i => i.item.guid == item.guid));
 
@@ -332,6 +361,16 @@ public class MainScript : MonoBehaviour
         yield return new WaitForSeconds(0.00001f);
         v.spacing = spacing + 0.00004f;
         v.spacing = spacing;
+    }
+
+    public void ShowWarning(string message)
+    {
+        var warn = Instantiate(WarningPanelPrefub);
+        warn.transform.SetParent(CanvasTransform);
+        warn.transform.localScale = Vector3.one;
+
+        WarningPanel warning = warn.GetComponent<WarningPanel>();
+        warning.SetWarningText(message);
     }
 
     //”ƒ¿À»“‹
