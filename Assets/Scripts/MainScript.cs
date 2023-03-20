@@ -19,12 +19,11 @@ public class MainScript : MonoBehaviour
     [SerializeField] private GameObject EditElementPanelPrefub;
     [SerializeField] private GameObject ConfirmationPanelPrefub;
     [SerializeField] private GameObject WarningPanelPrefub;
+    [SerializeField] private GameObject InfoPanelPrefub;
     [SerializeField] private Transform CanvasTransform;
     [SerializeField] private Transform Content;
     [SerializeField] private VerticalLayoutGroup itemLayout;
 
-
-    [SerializeField] private Animator refreshPanelAnimator;
 
     [SerializeField] private TMP_Text sortTypeText;
 
@@ -168,9 +167,7 @@ public class MainScript : MonoBehaviour
     {
         Debug.Log("ITEM TEXT " + tempItem.itemText);
 
-        var el = Instantiate(ElementPrefub);
-        el.transform.SetParent(Content);
-        el.transform.localScale = Vector3.one;
+        var el = Instantiate(ElementPrefub, Content);
 
         var itemUI = el.GetComponent<ItemUI>();
 
@@ -197,9 +194,7 @@ public class MainScript : MonoBehaviour
 
     public void AddEventButtonPress()
     {
-        var a = Instantiate(AddElementPanelPrefub);
-        a.transform.SetParent(CanvasTransform);
-        a.transform.localScale = Vector3.one;
+        var a = Instantiate(AddElementPanelPrefub, CanvasTransform);
 
         CreateTaskPanel tskWin = a.GetComponent<CreateTaskPanel>();
 
@@ -263,9 +258,7 @@ public class MainScript : MonoBehaviour
     {
         string oldItemText = item.itemText;
 
-        var a = Instantiate(EditElementPanelPrefub);
-        a.transform.SetParent(CanvasTransform);
-        a.transform.localScale = Vector3.one;
+        var a = Instantiate(EditElementPanelPrefub, CanvasTransform);
 
         EditElementPanel editElementPanel = a.GetComponent<EditElementPanel>();
 
@@ -289,10 +282,7 @@ public class MainScript : MonoBehaviour
                 return;
             }
 
-            var conf = Instantiate(ConfirmationPanelPrefub);
-            conf.transform.SetParent(CanvasTransform);
-            conf.transform.localScale = Vector3.one;
-
+            var conf = Instantiate(ConfirmationPanelPrefub, CanvasTransform);
 
             ConfirmationPanel ÒonfirmationPanel = conf.GetComponent<ConfirmationPanel>();
 
@@ -313,9 +303,7 @@ public class MainScript : MonoBehaviour
 
         editElementPanel.DeleteButton.onClick.AddListener(() =>
         {
-            var conf = Instantiate(ConfirmationPanelPrefub);
-            conf.transform.SetParent(CanvasTransform);
-            conf.transform.localScale = Vector3.one;
+            var conf = Instantiate(ConfirmationPanelPrefub, CanvasTransform);
 
             ConfirmationPanel con = conf.GetComponent<ConfirmationPanel>();
 
@@ -365,17 +353,14 @@ public class MainScript : MonoBehaviour
 
     public void ShowWarning(string message)
     {
-        var warn = Instantiate(WarningPanelPrefub);
-        warn.transform.SetParent(CanvasTransform);
-        warn.transform.localScale = Vector3.one;
+        var warn = Instantiate(WarningPanelPrefub, CanvasTransform);
 
         WarningPanel warning = warn.GetComponent<WarningPanel>();
         warning.SetWarningText(message);
     }
 
-    //”ƒ¿À»“‹
-    public void Secret()
+    public void OnInfoButtonPress()
     {
-        sortTypeText.text = "»ƒ» Õ¿’”…!!!";
+        Instantiate(InfoPanelPrefub, CanvasTransform);
     }
 }

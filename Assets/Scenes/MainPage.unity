@@ -157,10 +157,10 @@ MonoBehaviour:
   EditElementPanelPrefub: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
   ConfirmationPanelPrefub: {fileID: 8393333675206497601, guid: c0b6f4cfca41fd54890312365698736c, type: 3}
   WarningPanelPrefub: {fileID: 8393333675206497601, guid: 26d41f0596d7fa144a01e56367a1fcbb, type: 3}
+  InfoPanelPrefub: {fileID: 8393333675206497601, guid: 90eedac9326024e449ce00c393c88535, type: 3}
   CanvasTransform: {fileID: 604156645}
   Content: {fileID: 1017728194}
   itemLayout: {fileID: 1017728196}
-  refreshPanelAnimator: {fileID: 0}
   sortTypeText: {fileID: 1180933485}
 --- !u!4 &19866802
 Transform:
@@ -377,7 +377,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 19866801}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
-        m_MethodName: Secret
+        m_MethodName: OnInfoButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 344af400f9bb63b41bca96f5956086ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ecd9d3e373db3f140b5da40dc3ffa4e0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
