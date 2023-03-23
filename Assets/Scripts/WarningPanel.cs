@@ -25,11 +25,8 @@ public class WarningPanel : MonoBehaviour
         });
     }
 
-    // Update is called once per frame
     public void SetWarningText(string s)
     {
         WarningText.text = s;
     }
-
-
 }

@@ -20,6 +20,7 @@ public class ItemUI : MonoBehaviour
 
     public Item item;
 
+    //Смена статуса задания
     public void OnImagePress()
     {
         if (item != null)
@@ -30,7 +31,7 @@ public class ItemUI : MonoBehaviour
         }
     }
 
-    //Открытие редактирования элемента будет тут
+    //Открытие EditPanel
     public void OnPanelPress()
     {
         if (item != null)

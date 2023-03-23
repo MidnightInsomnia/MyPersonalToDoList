@@ -152,15 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 942ad2cd38d5c98469ed1d646e9fa851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ElementPrefub: {fileID: 2099441546753001902, guid: 6405665a1521afd48867539567e4d482, type: 3}
-  AddElementPanelPrefub: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
-  EditElementPanelPrefub: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
+  itemLayout: {fileID: 1017728196}
   ConfirmationPanelPrefub: {fileID: 8393333675206497601, guid: c0b6f4cfca41fd54890312365698736c, type: 3}
+  EditElementPanelPrefub: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
+  AddElementPanelPrefub: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
   WarningPanelPrefub: {fileID: 8393333675206497601, guid: 26d41f0596d7fa144a01e56367a1fcbb, type: 3}
   InfoPanelPrefub: {fileID: 8393333675206497601, guid: 90eedac9326024e449ce00c393c88535, type: 3}
+  ElementPrefub: {fileID: 2099441546753001902, guid: 6405665a1521afd48867539567e4d482, type: 3}
   CanvasTransform: {fileID: 604156645}
   Content: {fileID: 1017728194}
-  itemLayout: {fileID: 1017728196}
   sortTypeText: {fileID: 1180933485}
 --- !u!4 &19866802
 Transform:
