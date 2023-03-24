@@ -6,12 +6,10 @@ using UnityEngine.UI;
 
 public class ConfirmationPanel : MonoBehaviour
 {
-    public Button NoButton;
-    public Button YesButton;
-    
-    public Button BackgroundButton;
-
-    public Animator anim;
+    [SerializeField] private Button BackgroundButton;
+    [SerializeField] private Button NoButton;
+    [SerializeField] private Button YesButton;
+    [SerializeField] private Animator anim;
 
     void Start()
     {
@@ -22,6 +20,12 @@ public class ConfirmationPanel : MonoBehaviour
 
         BackgroundButton.onClick.AddListener(() => 
         {
+            anim.SetBool("IsOpened", false);
+        });
+
+        YesButton.onClick.AddListener(() =>
+        {
+            ToDoListEvents.OnConfirm?.Invoke();
             anim.SetBool("IsOpened", false);
         });
     }

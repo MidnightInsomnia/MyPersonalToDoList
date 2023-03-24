@@ -132,36 +132,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19866802}
-  - component: {fileID: 19866801}
+  - component: {fileID: 19866805}
+  - component: {fileID: 19866804}
+  - component: {fileID: 19866803}
   m_Layer: 0
-  m_Name: MainScript
+  m_Name: MVC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &19866801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19866800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 942ad2cd38d5c98469ed1d646e9fa851, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemLayout: {fileID: 1017728196}
-  ConfirmationPanelPrefub: {fileID: 8393333675206497601, guid: c0b6f4cfca41fd54890312365698736c, type: 3}
-  EditElementPanelPrefub: {fileID: 8393333675206497601, guid: 2eb5c07e26c2a6743b48ca269ba83b5a, type: 3}
-  AddElementPanelPrefub: {fileID: 8393333675206497601, guid: 4b87ee6ccae751448858eff29c1a0e62, type: 3}
-  WarningPanelPrefub: {fileID: 8393333675206497601, guid: 26d41f0596d7fa144a01e56367a1fcbb, type: 3}
-  InfoPanelPrefub: {fileID: 8393333675206497601, guid: 90eedac9326024e449ce00c393c88535, type: 3}
-  ElementPrefub: {fileID: 2099441546753001902, guid: 6405665a1521afd48867539567e4d482, type: 3}
-  CanvasTransform: {fileID: 604156645}
-  Content: {fileID: 1017728194}
-  sortTypeText: {fileID: 1180933485}
 --- !u!4 &19866802
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +157,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19866803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19866800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334661ac4acdc3d428f48e348cc9f45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainView: {fileID: 0}
+  mainModel: {fileID: 0}
+  SpawnedItems: []
+  UserToDoList: []
+  currentSortType: 0
+--- !u!114 &19866804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19866800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47282df2714e5d48a449efdf7e97704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemLayout: {fileID: 0}
+  ConfirmationPanelPrefub: {fileID: 0}
+  EditElementPanelPrefub: {fileID: 0}
+  AddElementPanelPrefub: {fileID: 0}
+  WarningPanelPrefub: {fileID: 0}
+  InfoPanelPrefub: {fileID: 0}
+  ElementPrefub: {fileID: 0}
+  CanvasTransform: {fileID: 0}
+  Content: {fileID: 0}
+  StatusText: {fileID: 0}
+--- !u!114 &19866805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19866800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1bf16b069d1304f83864409b11b07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnedItems: []
+  UserToDoList: []
+  currentSortType: 0
 --- !u!1 &43097854
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +294,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19866801}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
         m_MethodName: SortFullfilledButtonPress
         m_Mode: 1
@@ -375,7 +409,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19866801}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
         m_MethodName: OnInfoButtonPress
         m_Mode: 1
@@ -695,7 +729,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19866801}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
         m_MethodName: AddEventButtonPress
         m_Mode: 1
@@ -1409,7 +1443,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19866801}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
         m_MethodName: SortUnfulfilledButtonPress
         m_Mode: 1
@@ -1844,7 +1878,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 19866801}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainScript, Assembly-CSharp
         m_MethodName: SortAllButtonPress
         m_Mode: 1

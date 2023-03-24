@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,8 +16,11 @@ public class ItemUI : MonoBehaviour
 
     public delegate void MethodContainer(Item item);
 
-    public event MethodContainer onImgPrs;
-    public event MethodContainer OnPnlPrs;
+    //public event MethodContainer onImgPrs;
+    //public event MethodContainer OnPnlPrs;
+
+    public static Action<Item> onImagePress;
+    public static Action<Item> onPanelPress;
 
     public Item item;
 
@@ -27,7 +31,8 @@ public class ItemUI : MonoBehaviour
         {
             item.Checked = (item.Checked == true) ? false : true;
             img.sprite = (item.Checked == true) ? ifChecked : ifUnchecked;
-            onImgPrs(item);
+            //onImgPrs(item);
+            ToDoListEvents.OnItemCheckBoxPress?.Invoke(item);
         }
     }
 
@@ -36,7 +41,8 @@ public class ItemUI : MonoBehaviour
     {
         if (item != null)
         {
-            OnPnlPrs(item);
+            //OnPnlPrs(item);
+            ToDoListEvents.OnItemPanelPress?.Invoke(this);
         }
     }
 }

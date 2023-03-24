@@ -26,7 +26,7 @@ public class MainScript : MonoBehaviour
 
     private SortType currentSortType = SortType.All;
 
-    void Start()
+    /*void Start()
     {
         Debug.Log("PATH " + Application.persistentDataPath);
 
@@ -271,5 +271,5 @@ public class MainScript : MonoBehaviour
     public void OnInfoButtonPress()
     {
         Instantiate(InfoPanelPrefub, CanvasTransform);
-    }
+    }*/
 }

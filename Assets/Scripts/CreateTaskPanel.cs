@@ -7,10 +7,9 @@ using UnityEngine.UI;
 
 public class CreateTaskPanel : MonoBehaviour
 {
-    public Button CloseButton;
-    public Button AddButton;
-    public Button BackgroundButton;
-    public TMP_InputField taskText;
-
-    public Animator anim;
+    [SerializeField] private Button BackgroundButton;
+    [SerializeField] private Button CloseButton;
+    [SerializeField] private Button AddButton;
+    [SerializeField] private TMP_InputField taskText;
+    [SerializeField] private Animator anim;
 }
