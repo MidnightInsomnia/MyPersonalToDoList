@@ -20,6 +20,9 @@ public class MainView : MonoBehaviour
     [SerializeField] private Transform Content;
     [SerializeField] private TMP_Text StatusText;
 
+    [SerializeField] private MainController mainController;
+
+    public List<ItemUI> SpawnedItems = new List<ItemUI>();
 
     // Start is called before the first frame update
     void Start()
@@ -35,17 +38,17 @@ public class MainView : MonoBehaviour
 
     public void SortAllButtonPress()
     {
-        //SortItems(SortType.All);
+        mainController.SortItems(SortType.All);
     }
 
     public void SortFullfilledButtonPress()
     {
-        //SortItems(SortType.Fullfilled);
+        mainController.SortItems(SortType.Fullfilled);
     }
 
     public void SortUnfulfilledButtonPress()
     {
-        //SortItems(SortType.Unfulfilled);
+        mainController.SortItems(SortType.Unfulfilled);
     }
 
     public void OnInfoButtonPress()
@@ -53,9 +56,9 @@ public class MainView : MonoBehaviour
         Instantiate(InfoPanelPrefub, CanvasTransform);
     }
 
-    private void CreateElementInView(Item tempItem)
+    public void CreateElementInView(Item tempItem)
     {
-        /*Debug.Log("ITEM TEXT " + tempItem.itemText);
+        Debug.Log("ITEM TEXT " + tempItem.itemText);
 
         var el = Instantiate(ElementPrefub, Content);
 
@@ -63,60 +66,24 @@ public class MainView : MonoBehaviour
 
         itemUI.item = tempItem;
 
-
         itemUI.textField.text = tempItem.itemText;
 
         Debug.Log("itemEl " + itemUI.textField.text.ToString() + tempItem.timeStamp.ToString());
 
-        UserToDoList.Add(tempItem);
-
-        itemUI.onImgPrs += SwitchItemStatus;
-        itemUI.OnPnlPrs += OpenEditElementPanel;
+        //UserToDoList.Add(tempItem);
 
         itemUI.img.sprite = itemUI.item.Checked ? itemUI.ifChecked : itemUI.ifUnchecked;
 
         SpawnedItems.Add(itemUI);
 
-        SaveData(UserToDoList);
+        //SaveData(UserToDoList);
 
         UpdateLayoutSpacing(itemLayout, itemLayout.spacing);
-
-        Debug.Log("ElementAdded");*/
     }
 
     public void AddEventButtonPress()
     {
-        /*var a = Instantiate(AddElementPanelPrefub, CanvasTransform);
-
-        CreateTaskPanel tskWin = a.GetComponent<CreateTaskPanel>();
-
-        tskWin.AddButton.onClick.AddListener(() =>
-        {
-            if (tskWin.taskText.text.Equals(string.Empty))
-            {
-                ShowWarning("Текст заметки не может быть пустым!");
-
-                return;
-            }
-
-            string guid = Guid.NewGuid().ToString();
-
-            CreateElementInView(new Item(guid, tskWin.taskText.text, false, DateTime.Now));
-
-            SortItems(sortType: currentSortType);
-
-            tskWin.anim.SetBool("IsOpened", false);
-        });
-
-        tskWin.BackgroundButton.onClick.AddListener(() =>
-        {
-            tskWin.anim.SetBool("IsOpened", false);
-        });
-
-        tskWin.CloseButton.onClick.AddListener(() =>
-        {
-            tskWin.anim.SetBool("IsOpened", false);
-        });*/
+        Instantiate(AddElementPanelPrefub, CanvasTransform);
     }
 
     public void SpawnItems(List<Item> list)
@@ -129,7 +96,7 @@ public class MainView : MonoBehaviour
         UpdateLayoutSpacing(itemLayout, itemLayout.spacing);
     }
 
-    public void ChangeItemsDisplay(SortType sortType, List<ItemUI> spawnedItems)
+    public void ChangeItemsDisplay(SortType sortType)
     {
         int itemCount = 0;
 
@@ -137,7 +104,7 @@ public class MainView : MonoBehaviour
         {
             case SortType.All:
 
-                foreach (var element in spawnedItems)
+                foreach (var element in SpawnedItems)
                 {
                     element.backPanel.SetActive(true);
                     itemCount++;
@@ -146,7 +113,7 @@ public class MainView : MonoBehaviour
 
             case SortType.Fullfilled:
 
-                foreach (var element in spawnedItems)
+                foreach (var element in SpawnedItems)
                 {
                     if (element.item.Checked == true)
                     {
@@ -160,7 +127,7 @@ public class MainView : MonoBehaviour
 
             case SortType.Unfulfilled:
 
-                foreach (var element in spawnedItems)
+                foreach (var element in SpawnedItems)
                 {
                     if (element.item.Checked == false)
                     {
@@ -204,5 +171,13 @@ public class MainView : MonoBehaviour
     public void SpawnConfirmationPanel()
     {
         Instantiate(ConfirmationPanelPrefub, CanvasTransform);
+    }
+
+    public void SpawnWarningPanel(string message)
+    {
+        var warn = Instantiate(WarningPanelPrefub, CanvasTransform);
+
+        WarningPanel warning = warn.GetComponent<WarningPanel>();
+        warning.SetWarningText(message);
     }
 }

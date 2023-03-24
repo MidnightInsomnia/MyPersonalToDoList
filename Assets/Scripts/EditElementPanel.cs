@@ -59,7 +59,7 @@ public class EditElementPanel : MonoBehaviour
             {
                 if (taskText.text.Equals(oldItemText))
                 {
-                    MainController.ShowWarning("Вы не внесли изменений!");
+                    RequestWarning("Вы не внесли изменений!");
                     return;
                 }
 
@@ -102,5 +102,10 @@ public class EditElementPanel : MonoBehaviour
     public void RequestConfirmation()
     {
         ToDoListEvents.OnConfirmationRequest?.Invoke();
+    }
+
+    public void RequestWarning(string message)
+    {
+        ToDoListEvents.OnWarningRequest?.Invoke(message);
     }
 }

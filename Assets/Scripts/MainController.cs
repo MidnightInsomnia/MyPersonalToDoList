@@ -9,7 +9,7 @@ public class MainController : MonoBehaviour
     [SerializeField] private MainModel mainModel;
 
 
-    private List<ItemUI> SpawnedItems = new List<ItemUI>();
+    
     private List<Item> UserToDoList = new List<Item>();
 
     public SortType currentSortType = SortType.All;
@@ -20,15 +20,18 @@ public class MainController : MonoBehaviour
     {
         Debug.Log("PATH " + Application.persistentDataPath);
 
-        /*currentSortType = mainModel.LoadSortType();
+        currentSortType = mainModel.LoadSortType();
         UserToDoList = mainModel.LoadData();
 
         mainView.SpawnItems(UserToDoList);
-        mainView.ChangeItemsDisplay(sortType: currentSortType, SpawnedItems);*/
+        mainView.ChangeItemsDisplay(sortType: currentSortType);
     }
 
     private void OnEnable()
     {
+        ToDoListEvents.OnItemCreate += AddItem;
+        ToDoListEvents.OnWarningRequest += ShowWarning;
+        ToDoListEvents.OnItemCheckBoxPress += SwitchItemStatus;
         ToDoListEvents.OnItemPanelPress += EditItemPressed;
         ToDoListEvents.OnConfirmationRequest += RequestConfirmation;
         ToDoListEvents.OnItemChange += SaveChanges;
@@ -37,9 +40,13 @@ public class MainController : MonoBehaviour
 
     private void OnDisable()
     {
+        ToDoListEvents.OnItemCreate += AddItem;
+        ToDoListEvents.OnWarningRequest -= ShowWarning;
+        ToDoListEvents.OnItemCheckBoxPress -= SwitchItemStatus;
         ToDoListEvents.OnItemPanelPress -= EditItemPressed;
         ToDoListEvents.OnConfirmationRequest -= RequestConfirmation;
         ToDoListEvents.OnItemChange -= SaveChanges;
+        ToDoListEvents.OnItemDelete -= DeleteItem;
     }
 
     // Update is called once per frame
@@ -48,24 +55,19 @@ public class MainController : MonoBehaviour
         
     }
 
-    public static void ShowWarning(string message)
+    public void ShowWarning(string message)
     {
-        //Отдать в MainView
-
-        /*var warn = Instantiate(WarningPanelPrefub, CanvasTransform);
-
-        WarningPanel warning = warn.GetComponent<WarningPanel>();
-        warning.SetWarningText(message);*/
+        mainView.SpawnWarningPanel(message);
     }
 
     public void SortItems(SortType sortType)
     {
-        //currentSortType = sortType;
+        currentSortType = sortType;
 
         PlayerPrefs.SetString("SortType", Enum.GetName(typeof(SortType), sortType));
         PlayerPrefs.Save();
 
-        //mainView.ChangeItemsDisplay(sortType, SpawnedItems);
+        mainView.ChangeItemsDisplay(sortType);
     }
 
     public void EditItemPressed(ItemUI itemUI)
@@ -78,9 +80,11 @@ public class MainController : MonoBehaviour
         mainView.SpawnConfirmationPanel();
     }
 
-    public void ChangeItem()
+    public void AddItem(Item item)
     {
-
+        UserToDoList.Add(item);
+        mainView.CreateElementInView(item);
+        SortItems(sortType: currentSortType);
     }
 
     public void DeleteItem(ItemUI itemUI)
@@ -100,9 +104,9 @@ public class MainController : MonoBehaviour
 
     public void SwitchItemStatus(Item item)
     {
-        /* var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
+        var itemToChange = UserToDoList.Find(el => el.guid.Equals(item.guid));
         itemToChange = item;
-        SaveData(UserToDoList);
-        SortItems(sortType: currentSortType);*/
+        SaveChanges();
+        SortItems(sortType: currentSortType);
     }
 }
