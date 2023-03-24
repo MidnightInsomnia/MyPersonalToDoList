@@ -8,12 +8,9 @@ public class MainController : MonoBehaviour
     [SerializeField] private MainView mainView;
     [SerializeField] private MainModel mainModel;
 
-
-    
     private List<Item> UserToDoList = new List<Item>();
 
     public SortType currentSortType = SortType.All;
-    //public static Action<Item> OnItemChange;
 
     // Start is called before the first frame update
     void Start()
@@ -47,12 +44,6 @@ public class MainController : MonoBehaviour
         ToDoListEvents.OnConfirmationRequest -= RequestConfirmation;
         ToDoListEvents.OnItemChange -= SaveChanges;
         ToDoListEvents.OnItemDelete -= DeleteItem;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void ShowWarning(string message)

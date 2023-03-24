@@ -63,6 +63,12 @@ public class EditElementPanel : MonoBehaviour
                     return;
                 }
 
+                if (taskText.text.Equals(string.Empty))
+                {
+                    RequestWarning("Текст заметки не может быть пустым!");
+                    return;
+                }
+
                 RequestConfirmation();
 
                 ToDoListEvents.OnConfirm += ChangeItem;

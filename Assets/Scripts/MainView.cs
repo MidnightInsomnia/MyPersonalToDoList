@@ -36,6 +36,21 @@ public class MainView : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        ToDoListEvents.OnItemDelete += RemoveDeletedItem;
+    }
+
+    private void OnDisable()
+    {
+        ToDoListEvents.OnItemDelete -= RemoveDeletedItem;
+    }
+
+    private void RemoveDeletedItem(ItemUI itemUI)
+    {
+        SpawnedItems.Remove(itemUI);
+    }
+
     public void SortAllButtonPress()
     {
         mainController.SortItems(SortType.All);
@@ -70,13 +85,9 @@ public class MainView : MonoBehaviour
 
         Debug.Log("itemEl " + itemUI.textField.text.ToString() + tempItem.timeStamp.ToString());
 
-        //UserToDoList.Add(tempItem);
-
         itemUI.img.sprite = itemUI.item.Checked ? itemUI.ifChecked : itemUI.ifUnchecked;
 
         SpawnedItems.Add(itemUI);
-
-        //SaveData(UserToDoList);
 
         UpdateLayoutSpacing(itemLayout, itemLayout.spacing);
     }
