@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class Toolkit : MonoBehaviour
 {
-    //Метод для исправления графического бага Unity
-    //Проявляется в runtime во время добавления элемента в VLG
-    //Исправляется изменением параметра spacing
+    //РњРµС‚РѕРґ РґР»СЏ РёСЃРїСЂР°РІР»РµРЅРёСЏ РіСЂР°С„РёС‡РµСЃРєРѕРіРѕ Р±Р°РіР° Unity
+    //РџСЂРѕСЏРІР»СЏРµС‚СЃСЏ РІ runtime РІРѕ РІСЂРµРјСЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ VLG
+    //РСЃРїСЂР°РІР»СЏРµС‚СЃСЏ РёР·РјРµРЅРµРЅРёРµРј РїР°СЂР°РјРµС‚СЂР° spacing
     public static IEnumerator UpdateLayoutSpacing(VerticalLayoutGroup v, float spacing)
     {
         v.spacing = spacing + 0.00001f;

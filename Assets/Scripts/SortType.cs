@@ -1,8 +1,8 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Виды сортировки заданий
+//Р’РёРґС‹ СЃРѕСЂС‚РёСЂРѕРІРєРё Р·Р°РґР°РЅРёР№
 public enum SortType
 {
     All,

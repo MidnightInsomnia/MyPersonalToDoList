@@ -1,10 +1,10 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OnPanelCloseEvent : StateMachineBehaviour
 {
-    //Уничтожение префаба после завершения анимации закрытия панели
+    //РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ РїСЂРµС„Р°Р±Р° РїРѕСЃР»Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ Р°РЅРёРјР°С†РёРё Р·Р°РєСЂС‹С‚РёСЏ РїР°РЅРµР»Рё
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         Destroy(animator.gameObject);
